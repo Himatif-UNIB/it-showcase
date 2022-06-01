@@ -3,7 +3,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                rubik: "Rubik",
+                outfit: "Outfit",
+                "permanent-marker": "Permanent Marker",
             },
             colors: {
                 dark: {

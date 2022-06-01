@@ -1,14 +1,14 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Head from "next/head";
+import Header from "./Header"
+import Footer from "./Footer"
+import Head from "next/head"
 
-export default function Layouts({ children, pageMeta }) {
+export default function Layout({ children, pageMeta }) {
     const meta = {
-        title: "Showcase HIMATIF",
+        title: "HIMATIF Showcase",
         description: "Website yang menampung hasil karya Mahasiswa Informatika UNIB.",
         type: "website",
         ...pageMeta,
-    };
+    }
 
     return (
         <>
@@ -22,13 +22,15 @@ export default function Layouts({ children, pageMeta }) {
                 <meta property="og:title" content={meta.title} />
             </Head>
 
-            <div className="min-h-screen bg-dark-900 text-white font-rubik">
-                <div className="px-12 py-6">
+            <div className="min-h-screen bg-dark-900 font-outfit text-white">
+                <div className="px-6 py-8">
                     <Header />
                 </div>
-                <main>{children}</main>
+                <div className="mt-24 px-6">
+                    <main>{children}</main>
+                </div>
                 <Footer />
             </div>
         </>
-    );
+    )
 }
