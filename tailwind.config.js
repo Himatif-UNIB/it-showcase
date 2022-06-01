@@ -4,6 +4,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 rubik: "Rubik",
+                "permanent-marker": "Permanent Marker",
             },
             colors: {
                 dark: {
