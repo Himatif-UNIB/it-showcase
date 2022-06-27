@@ -1,8 +1,9 @@
 import { Disclosure } from "@headlessui/react"
+import { defaultTypes } from "../../helpers/defaultData"
 
-export default function Sidebar({ filterClicked }) {
+export default function Sidebar({ expandedFilter }) {
     return (
-        <aside className={filterClicked ? "col-span-0 hidden" : "col-span-1"}>
+        <aside className={expandedFilter ? "col-span-0 hidden" : "col-span-1"}>
             <div className="p-5">
                 <Disclosure className="flex items-center justify-between">
                     {({ open }) => (
@@ -21,10 +22,13 @@ export default function Sidebar({ filterClicked }) {
                             </Disclosure.Button>
                             <Disclosure.Panel className="mt-4">
                                 <div>
-                                    <div className="flex space-x-4">
-                                        <button className="rounded-md border-2 border-gray-600 py-2 px-5">App</button>
-                                        <button className="rounded-md border-2 border-gray-600 py-2 px-5">Multimedia</button>
-                                    </div>
+                                    <ul className="flex space-x-4">
+                                        {defaultTypes.map((type) => (
+                                            <li key={type.identifier}>
+                                                <button className="rounded-md border-2 border-gray-600 py-2 px-5">{type.label}</button>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </Disclosure.Panel>
                         </>
