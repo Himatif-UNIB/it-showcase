@@ -1,20 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
 import { useState } from "react"
 import Layout from "../sections/Layout"
 
-import Header from "../components/ShowcasesPage/Header"
-import Searchbar from "../components/ShowcasesPage/Searchbar"
-import Sidebar from "../components/ShowcasesPage/Sidebar"
-import ShowcasesItems from "../components/ShowcasesPage/ShowcasesItems"
+import { Header, Searchbar, ShowcasesItems } from "../components/ShowcasesPage"
+import { TypeList, CategoryList } from "../components/ShowcasesPage/Sidebar"
 
 export default function Home() {
     const [expandedFilter, setExpandedFilter] = useState(false)
 
-    // All filters data state
+    // All filters state define here
     const [categories, setCategories] = useState([])
     const [types, setTypes] = useState([])
     const [technologies, setTechnologies] = useState([])
-    const [searc, setSearch] = useState("")
+    const [search, setSearch] = useState("")
 
     const toggleExpandedFilter = () => {
         setExpandedFilter(!expandedFilter)
@@ -27,7 +24,10 @@ export default function Home() {
             <section className="mt-12">
                 <Searchbar toggleExpandedFilter={toggleExpandedFilter} />
                 <div className="mt-5 grid grid-cols-4 gap-6">
-                    <Sidebar expandedFilter={expandedFilter} />
+                    <aside className={expandedFilter ? "col-span-0 hidden" : "col-span-1"}>
+                        <TypeList />
+                        <CategoryList />
+                    </aside>
                     <ShowcasesItems expandedFilter={expandedFilter} />
                 </div>
             </section>
