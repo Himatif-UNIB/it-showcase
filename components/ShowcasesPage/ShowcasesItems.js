@@ -4,8 +4,8 @@ import Link from "next/link"
 import { useQuery } from "react-query"
 import axios from "../../config"
 
-export default function ShowcasesItems({ expandedFilter }) {
-    const showcasesQuery = useQuery(["showcases"], () => getShowcasesData())
+export default function ShowcasesItems({ categories, search, type, expandedFilter, initialShowcases }) {
+    const showcasesQuery = useQuery(["showcases", { categories, search, type }], () => getShowcasesData(categories, search, type), { initialData: initialShowcases })
 
     return (
         <section className={expandedFilter ? "col-span-4" : "col-span-3"}>
@@ -43,7 +43,20 @@ export default function ShowcasesItems({ expandedFilter }) {
     )
 }
 
-const getShowcasesData = async (page = 1) => {
-    const { data } = await axios.get(`/showcases?page=${page}`)
+const getShowcasesData = async (categories = [], search = "", type = "") => {
+    const categoriesString = categories.map((category) => `categories[]=${category}`).join("&")
+    const searchString = search ? `&search=${search}` : ""
+    const typeString = type ? `&type=${type}` : ""
+    const { data } = await axios.get(`/showcases?page=1${categoriesString}${searchString}${typeString}`)
     return data
+}
+
+export async function getServerSideProps() {
+    const initialShowcases = await getShowcasesData()
+
+    return {
+        props: {
+            initialShowcases,
+        },
+    }
 }

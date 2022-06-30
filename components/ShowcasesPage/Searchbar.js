@@ -1,4 +1,4 @@
-export default function Searchbar({ toggleExpandedFilter }) {
+export default function Searchbar({ setSearch, toggleExpandedFilter }) {
     return (
         <div className="flex items-center">
             <button className="rounded-full p-2 transition-all duration-200 ease-in hover:bg-dark-500" onClick={() => toggleExpandedFilter()}>
@@ -12,11 +12,25 @@ export default function Searchbar({ toggleExpandedFilter }) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <input
-                    className="revue-form-field block w-full rounded-lg bg-dark-800 px-2.5 py-3 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-200 ease-in-out hover:bg-dark-500 focus:outline-none"
-                    placeholder="Search..."
-                    type="text"
-                />
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault()
+                        setSearch(event.target.elements.search.value)
+                    }}
+                >
+                    <input
+                        type="search"
+                        id="search"
+                        name="search"
+                        className="revue-form-field block w-full rounded-lg bg-dark-800 px-2.5 py-3 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-200 ease-in-out hover:bg-dark-500 focus:outline-none"
+                        placeholder="Search..."
+                        onChange={(event) => {
+                            if (event.target.value.length === 0) {
+                                setSearch("")
+                            }
+                        }}
+                    />
+                </form>
             </div>
         </div>
     )

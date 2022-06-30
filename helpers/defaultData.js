@@ -1,9 +1,9 @@
 export const defaultTypes = [
-    { identifier: "app", label: "App" },
-    { identifier: "multimedia", label: "Multimedia" },
+    { name: "app", label: "App" },
+    { name: "multimedia", label: "Multimedia" },
 ]
 
 export const defaultCategories = [
-    { identifier: "sistem-informasi", label: "Sistem Informasi" },
-    { identifier: "apps", label: "Apps" },
+    { id: 1, label: "Sistem Informasi" },
+    { id: 2, label: "Apps" },
 ]

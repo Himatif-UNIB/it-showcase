@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react"
 import { defaultTypes } from "../../../helpers/defaultData"
 
-export default function TypeList() {
+export default function TypeList({ toggle }) {
     return (
         <div className="p-5">
             <Disclosure className="flex items-center justify-between">
@@ -23,8 +23,10 @@ export default function TypeList() {
                             <div>
                                 <ul className="flex space-x-4">
                                     {defaultTypes.map((type) => (
-                                        <li key={type.identifier}>
-                                            <button className="rounded-md border-2 border-gray-600 py-2 px-5">{type.label}</button>
+                                        <li key={type.name}>
+                                            <button className="rounded-md border-2 border-gray-600 py-2 px-5" onClick={() => toggle(type.name)}>
+                                                {type.label}
+                                            </button>
                                         </li>
                                     ))}
                                 </ul>
