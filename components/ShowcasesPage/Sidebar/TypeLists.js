@@ -1,14 +1,14 @@
 import { Disclosure } from "@headlessui/react"
 import { defaultTypes } from "../../../helpers/defaultData"
 
-export default function TypeList({ toggle }) {
+export default function TypeLists({ selected, toggle }) {
     return (
         <div className="p-5">
             <Disclosure className="flex items-center justify-between">
                 {({ open }) => (
                     <>
                         <Disclosure.Button className="flex w-full justify-between">
-                            <h5 className="font-medium">Type</h5>
+                            <h5 className="text-lg font-semibold">Type</h5>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={(open ? "rotate-180 " : "") + "h-5 w-5"} viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -24,7 +24,10 @@ export default function TypeList({ toggle }) {
                                 <ul className="flex space-x-4">
                                     {defaultTypes.map((type) => (
                                         <li key={type.name}>
-                                            <button className="rounded-md border-2 border-gray-600 py-2 px-5" onClick={() => toggle(type.name)}>
+                                            <button
+                                                className={(selected === type.name ? "border-blue-600 bg-blue-500" : "border-gray-600") + " rounded-md border-2 py-2 px-5"}
+                                                onClick={() => toggle(type.name)}
+                                            >
                                                 {type.label}
                                             </button>
                                         </li>

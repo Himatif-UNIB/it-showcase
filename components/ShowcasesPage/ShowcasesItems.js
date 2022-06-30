@@ -44,19 +44,9 @@ export default function ShowcasesItems({ categories, search, type, expandedFilte
 }
 
 const getShowcasesData = async (categories = [], search = "", type = "") => {
-    const categoriesString = categories.map((category) => `categories[]=${category}`).join("&")
+    const categoriesString = categories.map((category) => `&categories[]=${category}`).join("&")
     const searchString = search ? `&search=${search}` : ""
     const typeString = type ? `&type=${type}` : ""
     const { data } = await axios.get(`/showcases?page=1${categoriesString}${searchString}${typeString}`)
     return data
-}
-
-export async function getServerSideProps() {
-    const initialShowcases = await getShowcasesData()
-
-    return {
-        props: {
-            initialShowcases,
-        },
-    }
 }

@@ -1,2 +1,2 @@
-export { default as TypeList } from "./TypeList"
-export { default as CategoryList } from "./CategoryList"
+export { default as TypeLists } from "./TypeLists"
+export { default as CategoryLists } from "./CategoryLists"

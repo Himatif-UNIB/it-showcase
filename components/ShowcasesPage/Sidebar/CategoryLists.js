@@ -1,14 +1,19 @@
 import { Disclosure } from "@headlessui/react"
-import { defaultCategories } from "../../../helpers/defaultData"
+import { useQuery } from "react-query"
+import truncate from "../../../utils/truncate"
 
-export default function CategoryList({ selected, toggle }) {
+export default function CategoryLists({ initialCategories, selected, toggle }) {
+    const categoriesQuery = useQuery("categories", () => getCategories(), {
+        initialData: initialCategories,
+    })
+
     return (
         <div className="p-5">
             <Disclosure className="flex items-center justify-between">
                 {({ open }) => (
                     <>
                         <Disclosure.Button className="flex w-full justify-between">
-                            <h5 className="font-medium">Category</h5>
+                            <h5 className="text-lg font-semibold">Category</h5>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={(open ? "rotate-180 " : "") + "h-5 w-5"} viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -20,9 +25,9 @@ export default function CategoryList({ selected, toggle }) {
                             </span>
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-4 space-y-3">
-                            {defaultCategories.map((category) => (
+                            {categoriesQuery.data?.map((category) => (
                                 <div key={category.id} className="flex cursor-pointer justify-between" onClick={() => toggle(category.id)}>
-                                    <span>{category.label}</span>
+                                    <span>{truncate(category.name, 31)}</span>
                                     <span className="relative h-6 w-6">
                                         <input
                                             type="checkbox"

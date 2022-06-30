@@ -1,10 +1,11 @@
 import { useState } from "react"
 import Layout from "../sections/Layout"
+import axios from "../config"
 
 import { Header, Searchbar, ShowcasesItems } from "../components/ShowcasesPage"
-import { TypeList, CategoryList } from "../components/ShowcasesPage/Sidebar"
+import { TypeLists, CategoryLists } from "../components/ShowcasesPage/Sidebar"
 
-export default function Home() {
+export default function Home({ initialCategories, initialShowcases }) {
     const [expandedFilter, setExpandedFilter] = useState(false)
 
     // All filters state define here
@@ -21,8 +22,9 @@ export default function Home() {
                 <Searchbar setSearch={(value) => setSearch(value)} toggleExpandedFilter={() => setExpandedFilter(!expandedFilter)} />
                 <div className="mt-5 grid grid-cols-4 gap-6">
                     <aside className={expandedFilter ? "col-span-0 hidden" : "col-span-1"}>
-                        <TypeList toggle={(type) => setType(type)} />
-                        <CategoryList
+                        <TypeLists selected={type} toggle={(type) => setType(type)} />
+                        <CategoryLists
+                            initialCategories={initialCategories}
                             selected={categories}
                             toggle={(category) =>
                                 setCategories((currentCategories) =>
@@ -31,9 +33,27 @@ export default function Home() {
                             }
                         />
                     </aside>
-                    <ShowcasesItems categories={categories} search={search} type={type} expandedFilter={expandedFilter} />
+                    <ShowcasesItems initialShowcases={initialShowcases} categories={categories} search={search} type={type} expandedFilter={expandedFilter} />
                 </div>
             </section>
         </Layout>
     )
+}
+
+const getShowcasesData = async () => {
+    const { data } = await axios.get("/showcases?page=1")
+    return data
+}
+
+export async function getServerSideProps() {
+    const categories = await axios.get("/showcases/categories")
+    const initialCategories = categories.data
+    const initialShowcases = await getShowcasesData()
+
+    return {
+        props: {
+            initialCategories,
+            initialShowcases,
+        },
+    }
 }
