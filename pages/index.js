@@ -22,7 +22,7 @@ export default function Home({ initialCategories, initialShowcases }) {
                 <Searchbar setSearch={(value) => setSearch(value)} toggleExpandedFilter={() => setExpandedFilter(!expandedFilter)} />
                 <div className="mt-5 grid grid-cols-4 gap-6">
                     <aside className={expandedFilter ? "col-span-0 hidden" : "col-span-1"}>
-                        <TypeLists selected={type} toggle={(type) => setType(type)} />
+                        <TypeLists selected={type} toggle={(type) => setType((currentType) => (type !== currentType ? type : ""))} />
                         <CategoryLists
                             initialCategories={initialCategories}
                             selected={categories}

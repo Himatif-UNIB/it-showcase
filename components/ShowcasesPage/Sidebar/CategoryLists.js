@@ -27,7 +27,7 @@ export default function CategoryLists({ initialCategories, selected, toggle }) {
                         <Disclosure.Panel className="mt-4 space-y-3">
                             {categoriesQuery.data?.map((category) => (
                                 <div key={category.id} className="flex cursor-pointer justify-between" onClick={() => toggle(category.id)}>
-                                    <span>{truncate(category.name, 31)}</span>
+                                    <span className="text-gray-300">{truncate(category.name, 31)}</span>
                                     <span className="relative h-6 w-6">
                                         <input
                                             type="checkbox"

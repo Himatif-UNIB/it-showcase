@@ -7,15 +7,26 @@ import axios from "../../config"
 export default function ShowcasesItems({ categories, search, type, expandedFilter, initialShowcases }) {
     const showcasesQuery = useQuery(["showcases", { categories, search, type }], () => getShowcasesData(categories, search, type), { initialData: initialShowcases })
 
+    const hasFilters = () => {
+        return categories.length > 0 || search !== "" || type !== ""
+    }
+
     return (
         <section className={expandedFilter ? "col-span-4" : "col-span-3"}>
+            <div className="mb-4" id="search-pills">
+                <div className="text-lg text-gray-300" id="pill">
+                    {showcasesQuery.isLoading ? (
+                        <div className="flex items-center">
+                            <div className="h-5 w-5 animate-spin rounded-full border-b-4 border-white ease-in-out"></div>
+                            <span className="ml-3">Loading items</span>
+                        </div>
+                    ) : (
+                        <>{hasFilters() && <>{showcasesQuery.data.length} items</>}</>
+                    )}
+                </div>
+            </div>
             <div className={(expandedFilter ? "grid-cols-4" : "grid-cols-3") + " grid gap-6"}>
-                {showcasesQuery.isLoading ? (
-                    <div className="flex items-center">
-                        <div className="h-5 w-5 animate-spin rounded-full border-b-4 border-white ease-in-out"></div>
-                        <span className="ml-3">Loading items</span>
-                    </div>
-                ) : (
+                {!showcasesQuery.isLoading && (
                     <>
                         {showcasesQuery.data.map((showcase) => (
                             <Link href={`/showcases/${showcase.id}`} className="rounded-lg bg-dark-600" key={showcase.id}>
