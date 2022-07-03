@@ -29,7 +29,7 @@ export default function ShowcasesItems({ categories, search, type, expandedFilte
                 {!showcasesQuery.isLoading && (
                     <>
                         {showcasesQuery.data.map((showcase) => (
-                            <Link href={`/showcases/${showcase.id}`} className="rounded-lg bg-dark-600" key={showcase.id}>
+                            <Link href={`/showcases/${showcase.id}`} className="bg-dark-600 rounded-lg" key={showcase.id}>
                                 <a>
                                     <div className="h-[275px]">
                                         <img src={showcase.media} className="h-full w-full rounded-lg" alt={showcase.media} />
@@ -42,7 +42,7 @@ export default function ShowcasesItems({ categories, search, type, expandedFilte
                                                 <span className="text-blue-400">{showcase.user.name}</span>
                                             </p>
                                         </div>
-                                        <div className="justify-self-end rounded-md bg-dark-800 px-3 py-1 text-sm capitalize text-blue-500">{showcase.type}</div>
+                                        <div className="bg-dark-800 justify-self-end rounded-md px-3 py-1 text-sm capitalize text-blue-500">{showcase.type}</div>
                                     </div>
                                 </a>
                             </Link>

@@ -3,7 +3,7 @@ import Layout from "../sections/Layout"
 import axios from "../config"
 
 import { Header, Searchbar, ShowcasesItems } from "../components/ShowcasesPage"
-import { TypeLists, CategoryLists } from "../components/ShowcasesPage/Sidebar"
+import { TypeLists, CategoryLists, UserLists } from "../components/ShowcasesPage/Sidebar"
 
 export default function Home({ initialCategories, initialShowcases }) {
     const [expandedFilter, setExpandedFilter] = useState(false)
@@ -21,7 +21,8 @@ export default function Home({ initialCategories, initialShowcases }) {
             <section className="mt-12">
                 <Searchbar setSearch={(value) => setSearch(value)} toggleExpandedFilter={() => setExpandedFilter(!expandedFilter)} />
                 <div className="mt-5 grid grid-cols-4 gap-6">
-                    <aside className={expandedFilter ? "col-span-0 hidden" : "col-span-1"}>
+                    <aside className={(expandedFilter ? "col-span-0 hidden" : "col-span-1") + " space-y-4"}>
+                        <UserLists />
                         <TypeLists selected={type} toggle={(type) => setType((currentType) => (type !== currentType ? type : ""))} />
                         <CategoryLists
                             initialCategories={initialCategories}

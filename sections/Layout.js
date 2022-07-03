@@ -1,4 +1,4 @@
-import Header from "./Header"
+import Navbar from "./Navbar"
 import Footer from "./Footer"
 import Head from "next/head"
 
@@ -22,11 +22,11 @@ export default function Layout({ children, pageMeta }) {
                 <meta property="og:title" content={meta.title} />
             </Head>
 
-            <div className="min-h-screen bg-dark-900 font-outfit text-white">
+            <div className="min-h-screen bg-dark font-outfit text-white">
                 <div className="px-6 py-8">
-                    <Header />
+                    <Navbar />
                 </div>
-                <div className="mt-24 px-6">
+                <div className="mt-12 px-6">
                     <main>{children}</main>
                 </div>
                 <Footer />

@@ -1,7 +1,6 @@
 import Link from "next/link"
-import React from "react"
 
-export default function Header() {
+export default function Navbar() {
     return (
         <div className="flex items-center justify-between">
             <Link href={"/"}>
