@@ -23,8 +23,8 @@ export const userLists = [
 
 export default function UserLists() {
     return (
-        <Collapse label="User" initialOpen>
-            <div className="shadow-large w-full rounded-lg bg-light-dark text-sm">
+        <Collapse label="User" initialOpen={true}>
+            <div className="w-full rounded-lg bg-light-dark text-sm shadow-large">
                 <div className="relative">
                     <SearchIcon className="absolute left-6 h-full text-white" />
                     <input
@@ -45,7 +45,7 @@ export default function UserLists() {
                                 onClick={() => handleSelectedUser(user.id)}
                                 className="mb-1 flex cursor-pointer items-center gap-3 py-1.5 px-6 outline-none hover:bg-gray-700 focus:bg-gray-600"
                             >
-                                <div className="shadow-card relative h-6 w-6 shrink-0 overflow-hidden rounded-full">
+                                <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full shadow-card">
                                     <Image src={user.profile_picture} placeholder="blur" blurDataURL layout="fill" objectFit="cover" className="rounded-full" alt={user.name} />
                                 </div>
                                 <span className="text-sm tracking-tight text-white">{user.name}</span>

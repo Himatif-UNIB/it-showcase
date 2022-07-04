@@ -9,24 +9,26 @@ import "swiper/css/navigation"
 export default function Header({ data }) {
     return (
         <header>
-            <Swiper
-                pagination={{
-                    dynamicBullets: true,
-                }}
-                modules={[Pagination]}
-            >
-                {data.media.all.map((media) => (
-                    <SwiperSlide key={media.id}>
-                        <img src={media.url} alt="himatif" className="swiper-lazy rounded-xl" />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            <div className="mt-12 text-center">
-                <h2 className="mx-48 text-5xl font-semibold">{data.title}</h2>
+            <div className="mx-4 md:mx-0">
+                <Swiper
+                    pagination={{
+                        dynamicBullets: true,
+                    }}
+                    modules={[Pagination]}
+                >
+                    {data.media.all.map((media) => (
+                        <SwiperSlide key={media.id}>
+                            <img src={media.url} alt="himatif" className="swiper-lazy m rounded-xl" />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
             </div>
-            <div className="mt-8 flex items-center justify-center space-x-4">
+            <div className="mt-12 text-center">
+                <h2 className="mx-5 text-4xl font-semibold md:mx-48 md:text-5xl">{data.title}</h2>
+            </div>
+            <div className="mt-8 flex flex-col items-center justify-center md:flex-row md:space-x-4">
                 <img className="w-12" src={data.user.profile_picture ? data.user.profile_picture : "/images/HighFive.png"} alt="" />
-                <span className="text-lg font-medium">{data.user.name}</span>
+                <span className="font-medium md:text-lg">{data.user.name}</span>
                 <span className="text-gray-400">&middot;</span>
                 <div className="flex items-center space-x-2">
                     {data.github_url && (

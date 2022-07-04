@@ -22,11 +22,11 @@ export default function Layout({ children, pageMeta }) {
                 <meta property="og:title" content={meta.title} />
             </Head>
 
-            <div className="min-h-screen bg-dark font-outfit text-white">
+            <div className="relative min-h-screen bg-dark font-outfit text-white">
                 <div className="px-6 py-8">
                     <Navbar />
                 </div>
-                <div className="mt-12 px-6">
+                <div className="mt-12">
                     <main>{children}</main>
                 </div>
                 <Footer />

@@ -16,8 +16,8 @@ export default function ShowcaseDetail() {
             {isError && <p>There was an error processing your request</p>}
             {isLoading && <p>Loading....</p>}{" "}
             {isSuccess && (
-                <article className="flex items-center justify-center">
-                    <div className="w-3/4">
+                <article className="items-center justify-center pb-12 md:flex">
+                    <div className="md:w-3/4">
                         <Header data={data} />
                         <Body data={data} />
                     </div>

@@ -6,8 +6,8 @@ export default function Body({ data }) {
                     <p className="cursor-pointer text-sm capitalize transition-all duration-300 ease-in-out group-hover:text-white">{data.category.name}</p>
                 </div>
             </div>
-            <div className="mt-6 rounded-xl bg-[#1F2937] p-8 text-gray-300">
-                <p dangerouslySetInnerHTML={{ __html: data.description }}></p>
+            <div className="mx-5 mt-6 rounded-xl bg-[#1F2937] p-8 md:mx-0">
+                <p className="text-gray-300" dangerouslySetInnerHTML={{ __html: data.description }}></p>
             </div>
         </section>
     )

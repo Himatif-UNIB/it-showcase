@@ -25,14 +25,18 @@ export default function ShowcasesItems({ categories, search, type, expandedFilte
                     )}
                 </div>
             </div>
-            <div className={(expandedFilter ? "grid-cols-4" : "grid-cols-3") + " grid gap-6"}>
+            <div className={(expandedFilter ? "md:grid-cols-4" : "md:grid-cols-3") + " grid gap-6"}>
                 {!showcasesQuery.isLoading && (
                     <>
                         {showcasesQuery.data.map((showcase) => (
-                            <Link href={`/showcases/${showcase.id}`} className="bg-dark-600 rounded-lg" key={showcase.id}>
-                                <a>
-                                    <div className="h-[275px]">
-                                        <img src={showcase.media} className="h-full w-full rounded-lg" alt={showcase.media} />
+                            <Link href={`/showcases/${showcase.id}`} className="bg-dark-600 group rounded-lg" key={showcase.id}>
+                                <a className="group">
+                                    <div className="group inline-block h-[275px] overflow-hidden rounded-lg">
+                                        <img
+                                            src={showcase.media}
+                                            className="ease-[cubic-bezier(0.33, 1, 0.68, 1)] h-full w-full rounded-lg transition-all duration-[350ms] group-hover:scale-125"
+                                            alt={showcase.media}
+                                        />
                                     </div>
                                     <div className="grid grid-cols-2 items-center justify-between p-4">
                                         <div>
