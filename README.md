@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/G3dh1i8.png" alt="himatif showcase logo" width="300"><br>
-  <br>✨ Himatif Showcase Interface ✨<br><br>
+  <img src="https://i.imgur.com/G3dh1i8.png" alt="himatif showcase logo" width="500"><br>
 </p>
 
 # Himatif Showcase Interface
@@ -13,6 +12,8 @@ Here, I list and describe the main technologies used in the repository.
 
 📦 **Next JS** - Based code project
 
-🚀 **React Query** - Used for Caching API
+✨ **Tailwind CSS** - Styling UI
 
-🎨 **Framer Motion** - Used for Animate motion
+🚀 **React Query** - Manage & Caching API
+
+🎨 **Framer Motion** - Make motion animation
