@@ -1,4 +1,9 @@
-export default function Searchbar({ setSearch, toggleExpandedFilter }) {
+import { useContext } from "react"
+import FilterContext from "../../helpers/filter/FilterContext"
+
+export default function Searchbar({ toggleExpandedFilter }) {
+    const context = useContext(FilterContext)
+
     return (
         <div className="flex items-center">
             <button className="hover:bg-dark-500 hidden rounded-full p-2 transition-all duration-200 ease-in md:block" onClick={() => toggleExpandedFilter()}>
@@ -15,7 +20,7 @@ export default function Searchbar({ setSearch, toggleExpandedFilter }) {
                 <form
                     onSubmit={(event) => {
                         event.preventDefault()
-                        setSearch(event.target.elements.search.value)
+                        context.setSearchQuery(event.target.elements.search.value)
                     }}
                 >
                     <input
@@ -26,7 +31,7 @@ export default function Searchbar({ setSearch, toggleExpandedFilter }) {
                         placeholder="Search..."
                         onChange={(event) => {
                             if (event.target.value.length === 0) {
-                                setSearch("")
+                                context.setSearchQuery("")
                             }
                         }}
                     />

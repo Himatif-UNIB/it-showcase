@@ -1,24 +1,31 @@
+import { useContext } from "react"
 import { useQuery } from "react-query"
 import truncate from "../../../utils/truncate"
 import Collapse from "../../ui/Collapse"
+import FilterContext from "../../../helpers/filter/FilterContext"
 
-export default function CategoryLists({ initialCategories, selected, toggle }) {
+export default function CategoryLists({ initialCategories }) {
+    const context = useContext(FilterContext)
+
     const categoriesQuery = useQuery("categories", () => getCategories(), {
         initialData: initialCategories,
     })
 
     return (
         <Collapse label="Category">
-            <div className="shadow-large w-full space-y-3 rounded-lg bg-light-dark px-5 py-4 text-sm">
+            <div className="w-full space-y-3 rounded-lg bg-light-dark px-5 py-4 text-sm shadow-large">
                 {categoriesQuery.data?.map((category) => (
-                    <div key={category.id} className="flex cursor-pointer justify-between" onClick={() => toggle(category.id)}>
+                    <div key={category.id} className="flex cursor-pointer justify-between" onClick={() => context.handleCategories(category.id)}>
                         <span className="text-gray-300">{truncate(category.name, 31)}</span>
                         <span className="relative h-6 w-6">
                             <input
                                 type="checkbox"
-                                className={(selected.includes(category.id) ? "border-blue-300" : "border-gray-500") + " inline-block h-6 w-6 appearance-none rounded-lg border-2 bg-light-dark"}
+                                className={
+                                    (context.selectedCategories.includes(category.id) ? "border-blue-300" : "border-gray-500") +
+                                    " inline-block h-6 w-6 appearance-none rounded-lg border-2 bg-light-dark"
+                                }
                             />
-                            {selected.includes(category.id) && (
+                            {context.selectedCategories.includes(category.id) && (
                                 <i className="absolute inset-0 flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-300" viewBox="0 0 20 20" fill="currentColor">
                                         <path

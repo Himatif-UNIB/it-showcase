@@ -1,33 +1,34 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Layout from "../sections/Layout"
 import axios from "../config"
 
 import { Header, Searchbar, ShowcasesItems } from "../components/ShowcasesPage"
 import { TypeLists, CategoryLists, UserLists } from "../components/ShowcasesPage/Sidebar"
+import FilterContext from "../helpers/filter/FilterContext"
+import { useRouter } from "next/router"
 import Close from "../components/Icons/Close"
 
 export default function Home({ initialCategories, initialShowcases }) {
+    const router = useRouter()
     const [expandedFilter, setExpandedFilter] = useState(false)
 
     // All filters state define here
-    const [categories, setCategories] = useState([])
-    const [type, setType] = useState("")
-    const [technologies, setTechnologies] = useState([])
-    const [search, setSearch] = useState("")
+    const filterContext = useContext(FilterContext)
+    const selectedCategories = filterContext.selectedCategories
+    const selectedType = filterContext.selectedType
+    const searchQuery = filterContext.searchQuery
 
-    const clearAllFilters = () => {
-        setCategories([])
-        setType("")
-        setSearch("")
-        setExpandedFilter(false)
-    }
+    useEffect(() => {
+        const pathname = window.location.pathname
+        router.push(`${pathname}?search=${searchQuery}&categories=${selectedCategories}&type=${selectedType}`)
+    }, [selectedCategories, selectedType, searchQuery])
 
     return (
         <Layout>
             <Header />
 
             <section className="mt-12 px-6">
-                <Searchbar setSearch={(value) => setSearch(value)} toggleExpandedFilter={() => setExpandedFilter(!expandedFilter)} />
+                <Searchbar toggleExpandedFilter={() => setExpandedFilter(!expandedFilter)} />
                 <div className="mt-5 pb-20 md:grid md:grid-cols-4 md:gap-6 md:pb-0">
                     <aside
                         className={
@@ -37,29 +38,16 @@ export default function Home({ initialCategories, initialShowcases }) {
                     >
                         <SmallHeader setExpandedFilter={setExpandedFilter} />
                         <UserLists />
-                        <TypeLists selected={type} toggle={(type) => setType((currentType) => (type !== currentType ? type : ""))} />
-                        <CategoryLists
-                            initialCategories={initialCategories}
-                            selected={categories}
-                            toggle={(category) =>
-                                setCategories((currentCategories) =>
-                                    currentCategories.includes(category) ? currentCategories.filter((currentCategory) => currentCategory !== category) : currentCategories.concat(category)
-                                )
-                            }
-                        />
-                        <SmallButtonAction clearAllFilters={clearAllFilters} setExpandedFilter={setExpandedFilter} />
+                        <TypeLists />
+                        <CategoryLists initialCategories={initialCategories} />
+                        <SmallButtonAction handleClearAllFilters={filterContext.handleClearAllFilters} setExpandedFilter={setExpandedFilter} />
                     </aside>
-                    <ShowcasesItems initialShowcases={initialShowcases} categories={categories} search={search} type={type} expandedFilter={expandedFilter} />
+                    <ShowcasesItems initialShowcases={initialShowcases} selectedCategories={selectedCategories} selectedType={selectedType} searchQuery={searchQuery} expandedFilter={expandedFilter} />
                     <FilterButton expandedFilter={expandedFilter} setExpandedFilter={setExpandedFilter} />
                 </div>
             </section>
         </Layout>
     )
-}
-
-const getShowcasesData = async () => {
-    const { data } = await axios.get("/showcases?page=1")
-    return data
 }
 
 function FilterButton({ expandedFilter, setExpandedFilter }) {
@@ -79,11 +67,17 @@ function FilterButton({ expandedFilter, setExpandedFilter }) {
     )
 }
 
-function SmallButtonAction({ clearAllFilters, setExpandedFilter }) {
+function SmallButtonAction({ handleClearAllFilters, setExpandedFilter }) {
     return (
         <div className="sticky bottom-0 block w-full border-t border-dashed border-gray-500 bg-dark py-4 md:hidden">
             <div className="grid grid-cols-2 gap-3">
-                <button className="rounded-xl bg-gray-700 px-6 py-3 text-lg font-medium" onClick={() => clearAllFilters()}>
+                <button
+                    className="rounded-xl bg-gray-700 px-6 py-3 text-lg font-medium"
+                    onClick={() => {
+                        handleClearAllFilters()
+                        setExpandedFilter(false)
+                    }}
+                >
                     Clear All
                 </button>
                 <button className="rounded-xl bg-blue-500 px-6 py-3 text-lg font-medium" onClick={() => setExpandedFilter(false)}>
@@ -106,10 +100,19 @@ function SmallHeader({ setExpandedFilter }) {
     )
 }
 
-export async function getServerSideProps() {
+const getShowcasesData = async (selectedCategories = "", search = "", type = "") => {
+    const categories = selectedCategories.split(",").map(Number)
+    const categoriesString = categories.map((category) => `categories[]=${category}`).join("&")
+    const searchString = search ? `&search=${search}` : ""
+    const typeString = type ? `&type=${type}` : ""
+    const { data } = await axios.get(`/showcases?page=1&${categoriesString}${searchString}${typeString}`)
+    return data
+}
+
+export async function getServerSideProps({ query }) {
     const categories = await axios.get("/showcases/categories")
     const initialCategories = categories.data
-    const initialShowcases = await getShowcasesData()
+    const initialShowcases = await getShowcasesData(query.categories, query.search, query.type)
 
     return {
         props: {

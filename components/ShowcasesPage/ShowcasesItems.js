@@ -4,11 +4,13 @@ import Link from "next/link"
 import { useQuery } from "react-query"
 import axios from "../../config"
 
-export default function ShowcasesItems({ categories, search, type, expandedFilter, initialShowcases }) {
-    const showcasesQuery = useQuery(["showcases", { categories, search, type }], () => getShowcasesData(categories, search, type), { initialData: initialShowcases })
+export default function ShowcasesItems({ selectedCategories, selectedType, searchQuery, expandedFilter, initialShowcases }) {
+    const showcasesQuery = useQuery(["showcases", { selectedCategories, selectedType, searchQuery }], () => getShowcasesData(selectedCategories, selectedType, searchQuery), {
+        initialData: initialShowcases,
+    })
 
     const hasFilters = () => {
-        return categories.length > 0 || search !== "" || type !== ""
+        return selectedCategories.length > 0 || selectedType !== "" || searchQuery !== ""
     }
 
     return (
@@ -58,10 +60,12 @@ export default function ShowcasesItems({ categories, search, type, expandedFilte
     )
 }
 
-const getShowcasesData = async (categories = [], search = "", type = "") => {
-    const categoriesString = categories.map((category) => `&categories[]=${category}`).join("&")
-    const searchString = search ? `&search=${search}` : ""
-    const typeString = type ? `&type=${type}` : ""
-    const { data } = await axios.get(`/showcases?page=1${categoriesString}${searchString}${typeString}`)
+const getShowcasesData = async (selectedCategories = [], selectedType = "", searchQuery = "") => {
+    console.log("SELECTED TYPE ", selectedType)
+    const categoriesString = selectedCategories.map((category) => `categories[]=${category}`).join("&")
+    const typeString = selectedType ? `&type=${selectedType}` : ""
+    console.log("TYPE STRING ", typeString)
+    const searchString = searchQuery ? `&search=${searchQuery}` : ""
+    const { data } = await axios.get(`/showcases?page=1&${categoriesString}${searchString}${typeString}`)
     return data
 }
