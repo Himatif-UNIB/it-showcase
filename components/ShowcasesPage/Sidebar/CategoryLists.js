@@ -7,7 +7,7 @@ import FilterContext from "../../../helpers/filter/FilterContext"
 export default function CategoryLists({ initialCategories }) {
     const context = useContext(FilterContext)
 
-    const categoriesQuery = useQuery("categories", () => getCategories(), {
+    const categoriesQuery = useQuery("categories", {
         initialData: initialCategories,
     })
 

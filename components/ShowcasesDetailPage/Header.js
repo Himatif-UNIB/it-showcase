@@ -5,6 +5,7 @@ import "swiper/css"
 import "swiper/css/lazy"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
+import Link from "next/link"
 
 export default function Header({ data }) {
     return (
@@ -28,7 +29,9 @@ export default function Header({ data }) {
             </div>
             <div className="mt-8 flex flex-col items-center justify-center md:flex-row md:space-x-4">
                 <img className="w-12" src={data.user.profile_picture ? data.user.profile_picture : "/images/HighFive.png"} alt="" />
-                <span className="font-medium md:text-lg">{data.user.name}</span>
+                <Link href={`/showcases/user/${data.user.id}`} className="font-medium md:text-lg">
+                    {data.user.name}
+                </Link>
                 <span className="text-gray-400">&middot;</span>
                 <div className="flex items-center space-x-2">
                     {data.github_url && (

@@ -3,9 +3,13 @@ import truncate from "../../utils/truncate"
 import Link from "next/link"
 import { useQuery } from "react-query"
 import axios from "../../config"
+import { useRouter } from "next/router"
 
 export default function ShowcasesItems({ selectedCategories, selectedType, searchQuery, expandedFilter, initialShowcases }) {
-    const showcasesQuery = useQuery(["showcases", { selectedCategories, selectedType, searchQuery }], () => getShowcasesData(selectedCategories, selectedType, searchQuery), {
+    const router = useRouter()
+    const userId = router.query.user_id
+
+    const showcasesQuery = useQuery(["showcases", { selectedCategories, selectedType, searchQuery }], () => getShowcasesData(selectedCategories, selectedType, searchQuery, userId), {
         initialData: initialShowcases,
     })
 
@@ -60,12 +64,14 @@ export default function ShowcasesItems({ selectedCategories, selectedType, searc
     )
 }
 
-const getShowcasesData = async (selectedCategories = [], selectedType = "", searchQuery = "") => {
-    console.log("SELECTED TYPE ", selectedType)
+const getShowcasesData = async (selectedCategories = [], selectedType = "", searchQuery = "", userId = null) => {
     const categoriesString = selectedCategories.map((category) => `categories[]=${category}`).join("&")
     const typeString = selectedType ? `&type=${selectedType}` : ""
-    console.log("TYPE STRING ", typeString)
     const searchString = searchQuery ? `&search=${searchQuery}` : ""
-    const { data } = await axios.get(`/showcases?page=1&${categoriesString}${searchString}${typeString}`)
+    if (userId) {
+        var { data } = await axios.get(`/showcases?user_id=${userId}&${categoriesString}${searchString}${typeString}`)
+    } else {
+        var { data } = await axios.get(`/showcases?${categoriesString}${searchString}${typeString}`)
+    }
     return data
 }
