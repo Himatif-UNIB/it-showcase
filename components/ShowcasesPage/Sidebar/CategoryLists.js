@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useQuery } from "react-query"
 import truncate from "../../../utils/truncate"
-import Collapse from "../../ui/Collapse"
+import Collapse from "../../Ui/collapse"
 import FilterContext from "../../../helpers/filter/FilterContext"
 
 export default function CategoryLists({ initialCategories }) {

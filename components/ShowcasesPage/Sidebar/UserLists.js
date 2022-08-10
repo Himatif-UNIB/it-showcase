@@ -1,6 +1,6 @@
 import Image from "next/image"
 import SearchIcon from "../../Icons/SearchIcon"
-import Collapse from "../../ui/Collapse"
+import Collapse from "../../Ui/collapse"
 
 // Dummy userLists data
 export const userLists = [
