@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { defaultTypes } from "../../../helpers/defaultData"
 import FilterContext from "../../../helpers/filter/FilterContext"
-import Collapse from "../../Ui/collapse"
+import Collapse from "../../Ui/Collapse"
 
 export default function TypeLists() {
     const context = useContext(FilterContext)
