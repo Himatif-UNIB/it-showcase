@@ -38,7 +38,7 @@ export default function Home({ initialCategories, initialShowcases }) {
                             }
                         >
                             <SmallHeader setExpandedFilter={setExpandedFilter} />
-                            <UserLists />
+                            {/* <UserLists /> */}
                             <TypeLists />
                             <CategoryLists initialCategories={initialCategories} />
                             <SmallButtonAction handleClearAllFilters={filterContext.handleClearAllFilters} setExpandedFilter={setExpandedFilter} />
