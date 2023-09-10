@@ -40,7 +40,7 @@ export default function ShowcasesItems({
               <span className="ml-3">Loading items</span>
             </div>
           ) : (
-            <>{hasFilters() && <>{showcasesQuery.data.length} items</>}</>
+            <>{<>{showcasesQuery.data.length} items</>}</>
           )}
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function ShowcasesItems({
                 key={showcase.id}
               >
                 <a className="group">
-                  <div className="group inline-center h-[275px] overflow-hidden rounded-lg">
+                  <div className="group inline-center h-[160px] md:h-[150px] xl:h-[275px] overflow-hidden rounded-lg">
                     <img
                       src={showcase.media}
                       className="ease-[cubic-bezier(0.33, 1, 0.68, 1)]  w-full rounded-lg transition-all duration-[350ms] group-hover:scale-125"
