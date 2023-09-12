@@ -4,6 +4,7 @@ import Collapse from "../../Ui/Collapse";
 import { useQuery } from "react-query";
 import FilterContext from "../../../helpers/filter/FilterContext";
 import { useContext } from "react";
+import Link from "next/link";
 
 export default function UserLists({ initialContri }) {
   const context = useContext(FilterContext);
@@ -29,7 +30,7 @@ export default function UserLists({ initialContri }) {
         </div> */}
         <ul role="listbox" className="py-3">
           {contributorQuery.data?.map((data, index) => (
-            <a href={`/?user_id=${data.id_user}`}>
+            <Link href={`/?user_id=${data.id_user}`} key={data.id_user}>
               <li
                 key={data.id_user}
                 role="listitem"
@@ -47,13 +48,12 @@ export default function UserLists({ initialContri }) {
                     className="rounded-full"
                     alt={data.name}
                   />
-                  
                 </div>
                 <span className="text-sm tracking-tight text-white">
                   {data.name}
                 </span>
               </li>
-            </a>
+            </Link>
           ))}
         </ul>
       </div>
