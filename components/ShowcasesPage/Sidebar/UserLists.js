@@ -3,7 +3,7 @@ import SearchIcon from "../../Icons/SearchIcon";
 import Collapse from "../../Ui/Collapse";
 import { useQuery } from "react-query";
 import FilterContext from "../../../helpers/filter/FilterContext";
-import { useContext } from "react"
+import { useContext } from "react";
 
 export default function UserLists({ initialContri }) {
   const context = useContext(FilterContext);
@@ -31,14 +31,14 @@ export default function UserLists({ initialContri }) {
           {contributorQuery.data?.map((data, index) => (
             <a href={`/?user_id=${data.id_user}`}>
               <li
-                key={index}
+                key={data.id_user}
                 role="listitem"
-                tabIndex={index}
+                tabIndex={data.id_user}
                 //   onClick={() => context.setSearchQuery(data.id_user)}
                 className="mb-1 flex cursor-pointer items-center gap-3 py-1.5 px-6 outline-none hover:bg-gray-700 focus:bg-gray-600"
               >
                 <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full shadow-card">
-                  <img
+                  <Image
                     src={data.profile}
                     placeholder="blur"
                     blurDataURL
@@ -47,6 +47,7 @@ export default function UserLists({ initialContri }) {
                     className="rounded-full"
                     alt={data.name}
                   />
+                  
                 </div>
                 <span className="text-sm tracking-tight text-white">
                   {data.name}
