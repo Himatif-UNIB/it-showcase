@@ -119,15 +119,15 @@ export default function Header({ data }) {
                   fill="currentColor"
                 >
                   <path
-                    class="uim-primary"
+                    className="uim-primary"
                     d="M6.00018,19.79588L9,14.59863h12l-3.00005,5.19725H6.00018z"
                   />
                   <path
-                    class="uim-quaternary"
+                    className="uim-quaternary"
                     d="M15.00018,14.59863H21L15.00018,4.20412H9L15.00018,14.59863z"
                   />
                   <path
-                    class="uim-tertiary"
+                    className="uim-tertiary"
                     d="M3,14.59863l3.00018,5.19725L12,9.40138L9,4.20412L3,14.59863z"
                   />
                 </svg>

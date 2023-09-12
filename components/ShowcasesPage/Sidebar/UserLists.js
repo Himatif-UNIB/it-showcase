@@ -10,6 +10,7 @@ export default function UserLists({ initialContri }) {
   const contributorQuery = useQuery("contributors", {
     initialData: initialContri,
   });
+  //   const pathname = window.location.pathname;
   return (
     <Collapse
       label={`In Showcase (${contributorQuery.data.length} People)`}
@@ -27,29 +28,31 @@ export default function UserLists({ initialContri }) {
           />
         </div> */}
         <ul role="listbox" className="py-3">
-          {contributorQuery.data?.map((data) => (
-            <li
-              key={data.name}
-              role="listitem"
-              tabIndex={data.name}
-              onClick={() => context.setSearchQuery(data.id_user)}
-              className="mb-1 flex cursor-pointer items-center gap-3 py-1.5 px-6 outline-none hover:bg-gray-700 focus:bg-gray-600"
-            >
-              <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full shadow-card">
-                <img
-                  src={data.profile}
-                  placeholder="blur"
-                  blurDataURL
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-full"
-                  alt={data.name}
-                />
-              </div>
-              <span className="text-sm tracking-tight text-white">
-                {data.name}
-              </span>
-            </li>
+          {contributorQuery.data?.map((data, index) => (
+            <a href={`/?user_id=${data.id_user}`}>
+              <li
+                key={index}
+                role="listitem"
+                tabIndex={index}
+                //   onClick={() => context.setSearchQuery(data.id_user)}
+                className="mb-1 flex cursor-pointer items-center gap-3 py-1.5 px-6 outline-none hover:bg-gray-700 focus:bg-gray-600"
+              >
+                <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full shadow-card">
+                  <img
+                    src={data.profile}
+                    placeholder="blur"
+                    blurDataURL
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-full"
+                    alt={data.name}
+                  />
+                </div>
+                <span className="text-sm tracking-tight text-white">
+                  {data.name}
+                </span>
+              </li>
+            </a>
           ))}
         </ul>
       </div>
