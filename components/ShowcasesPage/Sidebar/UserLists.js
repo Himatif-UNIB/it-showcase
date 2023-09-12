@@ -30,9 +30,9 @@ export default function UserLists({ initialContri }) {
         </div> */}
         <ul role="listbox" className="py-3">
           {contributorQuery.data?.map((data, index) => (
-            <Link href={`/?user_id=${data.id_user}`} key={data.id_user}>
+            <Link href={`/?user_id=${data.id_user}`} key={index}>
               <li
-                key={data.id_user}
+                key={index}
                 role="listitem"
                 tabIndex={data.id_user}
                 //   onClick={() => context.setSearchQuery(data.id_user)}
