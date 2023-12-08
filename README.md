@@ -4,7 +4,7 @@
 
 # Himatif Showcase Interface
 
-Himatif Showcase is a work program in the IT field of HIMATIF UNIB in 2022 which is integrated with the main HIMATIF website.
+Himatif Showcase is a work program in the IT field of HIMATIF UNIB in 2022/2023 which is integrated with the main HIMATIF website.
 
 ## Technologies
 

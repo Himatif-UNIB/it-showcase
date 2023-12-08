@@ -7,7 +7,7 @@ export default function TypeLists() {
     const context = useContext(FilterContext)
 
     return (
-        <Collapse label="Type">
+        <Collapse label="Type" initialOpen={true}>
             <div className="w-full rounded-lg bg-light-dark px-5 py-4 text-sm shadow-large">
                 <ul className="flex space-x-4">
                     {defaultTypes.map((type) => (

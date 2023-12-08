@@ -12,7 +12,7 @@ export default function CategoryLists({ initialCategories }) {
     })
 
     return (
-        <Collapse label="Category">
+        <Collapse label="Category" initialOpen={true}>
             <div className="w-full space-y-3 rounded-lg bg-light-dark px-5 py-4 text-sm shadow-large">
                 {categoriesQuery.data?.map((category) => (
                     <div key={category.id} className="flex cursor-pointer justify-between" onClick={() => context.handleCategories(category.id)}>
